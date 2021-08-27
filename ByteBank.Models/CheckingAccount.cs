@@ -2,6 +2,9 @@
 using System;
 
 namespace ByteBank.Models {
+  /// <summary>
+  /// A ByteBank account class.
+  /// </summary>
   public class CheckingAccount {
     private double _balance = 100;
 
@@ -25,6 +28,12 @@ namespace ByteBank.Models {
     public int WithdrawNotAllowed { get; private set; }
     public int TransferNotAllowed { get; private set; }
 
+    /// <summary>
+    /// Create a checking account instance with <see cref="Agency"/> and <see cref="Number"/>.
+    /// </summary>
+    /// <param name="agency">The <paramref name="agency"/> number of the checking account must be greater than zero.</param>
+    /// <param name="number">The <paramref name="number"/> of the checking account must be greater than zero.</param>
+    /// <exception cref="ArgumentException">The <see cref="Agency"/> and <see cref="Number"/> parameters must be greater than zero.</exception>
     public CheckingAccount(int agency, int number) {
       if (agency <= 0) {
         throw new ArgumentException("Agency and Number must be greater than 0", nameof(agency));
@@ -41,6 +50,12 @@ namespace ByteBank.Models {
       OperationTax = 30 / Qtd;
     }
 
+    /// <summary>
+    /// A method to withdraw a value from the checking account.
+    /// </summary>
+    /// <param name="value">The value of money wanted to withdraw. The <paramref name="value"/> must be greater than zero.</param>
+    /// <exception cref="ArgumentException">The <paramref name="value"/> must be greater than zero."/></exception>
+    /// <exception cref="InsufficientFundsException">The <see cref="Balance"/> must be greater than <paramref name="value"/>.</exception>
     public void Withdraw(double value) {
       if (value < 0) {
         throw new ArgumentException("The withdraw value is invalid!", nameof(value));
